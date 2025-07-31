@@ -1,12 +1,94 @@
-# React + Vite
+# React 性能问题演示项目
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个专门设计用来演示各种React性能问题的项目。通过这个项目，你可以学习识别和解决常见的React性能瓶颈。
 
-Currently, two official plugins are available:
+## 🚀 快速开始
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+# 安装依赖
+npm install
 
-## Expanding the ESLint configuration
+# 启动开发服务器
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 构建生产版本
+npm run build
+```
+
+## 📋 包含的性能问题
+
+### 基础性能问题
+1. **昂贵的数据创建** - 在组件内部创建大量数据，每次渲染都重新计算
+2. **缺少React.memo** - 子组件没有使用React.memo，导致不必要的重新渲染
+3. **渲染中的复杂计算** - 在渲染过程中进行耗时的数学计算
+4. **缺少useMemo缓存** - 数据过滤操作每次都重新执行
+5. **useEffect依赖问题** - 缺少依赖数组导致每次渲染都执行
+6. **函数引用问题** - 在渲染中创建新的函数引用
+7. **大量DOM渲染** - 同时渲染大量列表项
+8. **Context优化问题** - Provider的value每次都是新对象
+
+### 渲染性能问题
+9. **频繁的DOM更新** - 动画组件每50ms更新一次状态
+10. **资源泄漏** - 没有清理的定时器和事件监听器
+11. **渲染中的DOM查询** - 在组件渲染过程中查询DOM元素
+12. **内联样式滥用** - 大量的内联样式对象创建
+13. **深度嵌套组件** - 复杂的组件树结构
+14. **嵌套计算** - 在每个嵌套层级都进行复杂计算
+15. **Context订阅问题** - 使用Context但没有优化订阅
+
+### 内存和网络问题
+16. **内存泄漏** - 大量数据存储在组件状态中
+17. **数据无限增长** - 不清理旧数据，持续累积
+18. **不必要的网络请求** - 频繁的API调用
+19. **缺少防抖** - API调用没有防抖处理
+20. **自动触发请求** - 定时器自动触发网络请求
+
+### 事件和状态问题
+21. **大量事件监听器** - 添加多个高频事件监听器
+22. **缺少节流** - 高频事件（如mousemove）没有节流
+23. **事件监听器泄漏** - 忘记清理事件监听器
+24. **DOM元素过多** - 渲染中创建大量DOM元素
+25. **复杂状态更新** - 复杂的嵌套状态更新逻辑
+26. **深度状态嵌套** - 深度嵌套的状态结构
+27. **状态深拷贝** - 每次都深拷贝整个状态对象
+
+## 🔧 如何使用
+
+1. **启动应用** - 运行 `npm run dev` 并在浏览器中打开 http://localhost:5173
+2. **打开开发者工具** - 按F12打开浏览器开发者工具
+3. **观察控制台** - 查看性能问题的日志输出
+4. **使用性能面板** - 在Performance面板中录制性能分析
+5. **测试不同组件** - 点击按钮开启/关闭不同的性能问题组件
+
+## 📊 性能分析工具
+
+### 浏览器开发者工具
+- **Performance面板** - 录制和分析组件渲染性能
+- **Memory面板** - 观察内存使用情况和泄漏
+- **Network面板** - 查看网络请求的频率和效率
+- **Console面板** - 查看性能问题的日志输出
+
+### React开发者工具
+- **Profiler** - 分析React组件的渲染性能
+- **Components** - 查看组件树和props变化
+
+## 🎯 学习目标
+
+通过这个项目，你将学会：
+- 识别常见的React性能问题
+- 使用浏览器开发者工具进行性能分析
+- 理解React渲染机制和优化策略
+- 掌握useMemo、useCallback、React.memo等优化技巧
+- 学会处理内存泄漏和资源清理
+- 优化网络请求和状态管理
+
+## ⚠️ 注意事项
+
+这个项目故意包含了大量性能问题，**不要在生产环境中使用这些代码模式**。这些代码仅用于学习和演示目的。
+
+## 🔗 相关资源
+
+- [React性能优化官方文档](https://react.dev/learn/render-and-commit)
+- [React Profiler API](https://react.dev/reference/react/Profiler)
+- [Web性能优化指南](https://web.dev/performance/)
+- [Chrome DevTools性能分析](https://developer.chrome.com/docs/devtools/performance/)
